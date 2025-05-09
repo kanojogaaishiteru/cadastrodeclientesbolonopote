@@ -6,46 +6,47 @@ document.addEventListener('DOMContentLoaded', function () {
     const submitButton = document.getElementById('submitButton');
     const campoIndicados = document.getElementById('indicados');
 
-    // Carregar os clientes do localStorage assim que a página carregar
     loadClientesFromLocalStorage();
 
     form.addEventListener('submit', function(event) {
         event.preventDefault();
-        const nome = document.getElementById('nome').value;
+        const nome = document.getElementById('nome').value.trim();
         let compras = parseInt(document.getElementById('compras').value, 10);
-        let nivel = document.getElementById('nivel').value;
-        let cupons = document.getElementById('cupons').value; // Mantém o valor atual do cupom
-        const indicados = document.getElementById('indicados').value;
+        let nivel = parseInt(document.getElementById('nivel').value, 10);
+        let cupons = document.getElementById('cupons').value.trim();
+        const indicados = document.getElementById('indicados').value.trim();
 
-        // Se houver cupom e número de compras aumentar, resetar o cupom para "Sem cupom"
+        if (isNaN(compras)) compras = 0;
+        if (isNaN(nivel)) nivel = 1;
+
         if (cupons === '20%' && compras > 0) {
             cupons = 'Sem cupom';
         }
 
-        // Se o cliente indicar alguém, liberamos um cupom para ele (definir como 20%)
         if (indicados && cupons === 'Sem cupom') {
             cupons = '20%';
-            // Adicionar cliente indicado automaticamente
-            addIndicado(indicados);
         }
 
         if (editIndex === -1) {
-            // Adicionar novo cliente
             clientes.push({ nome, compras, nivel, cupons, indicados });
         } else {
-            // Editar cliente existente
             clientes[editIndex] = { nome, compras, nivel, cupons, indicados };
             editIndex = -1;
         }
 
-        // Limpar formulário e atualizar a tabela
+        if (indicados) {
+            const nomesIndicados = indicados.split(',').map(n => n.trim()).filter(n => n);
+            nomesIndicados.forEach(indicado => {
+                const existe = clientes.find(c => c.nome === indicado);
+                if (!existe) {
+                    clientes.push({ nome: indicado, compras: 1, nivel: 1, cupons: 'Cupom 20%', indicados: '' });
+                }
+            });
+        }
+
         form.reset();
         updateTable();
-
-        // Voltar o botão para "Adicionar Cliente"
         submitButton.textContent = "Adicionar Cliente";
-
-        // Salvar clientes no localStorage
         saveClientesToLocalStorage();
     });
 
@@ -92,47 +93,28 @@ document.addEventListener('DOMContentLoaded', function () {
         document.getElementById('nome').value = cliente.nome;
         document.getElementById('compras').value = cliente.compras;
         document.getElementById('nivel').value = cliente.nivel;
+        document.getElementById('cupons').value = cliente.cupons;
         document.getElementById('indicados').value = cliente.indicados;
 
-        // Aqui, vamos garantir que o campo de cupom seja configurado corretamente durante a edição
-        const campoCupom = document.getElementById('cupons');
-        campoCupom.value = cliente.cupons; // Ajusta o campo de cupom ao valor do cliente
-
         editIndex = index;
-
-        // Alterar o texto do botão para "Atualizar Cliente" durante a edição
         submitButton.textContent = "Atualizar Cliente";
     }
 
     function deleteCliente(index) {
         clientes.splice(index, 1);
         updateTable();
-        saveClientesToLocalStorage(); // Atualizar o localStorage após exclusão
+        saveClientesToLocalStorage();
     }
 
-    // Função que adiciona um novo cliente baseado no nome do indicado
-    function addIndicado(nomeIndicado) {
-        // Verificar se o cliente já existe antes de adicionar
-        const clienteExistente = clientes.find(cliente => cliente.nome === nomeIndicado);
-        if (!clienteExistente && nomeIndicado.trim() !== '') {
-            // Se o indicado não existir, adiciona um novo cliente com o nome dele
-            clientes.push({ nome: nomeIndicado, compras: 0, nivel: 1, cupons: 'Sem cupom', indicados: '' });
-            updateTable();
-            saveClientesToLocalStorage(); // Atualiza o localStorage após adicionar o novo cliente
-        }
-    }
-
-    // Referências para os botões
     const cupom20Button = document.getElementById('cupom20');
     const semCupomButton = document.getElementById('semCupom');
     const campoCupom = document.getElementById('cupons');
 
-    // Definindo a ação de cada botão
     cupom20Button.addEventListener('click', function() {
-        campoCupom.value = '20%';  // Preenche o campo com "20%"
+        campoCupom.value = 'Cupom 20%';
     });
 
     semCupomButton.addEventListener('click', function() {
-        campoCupom.value = 'Sem cupom';  // Preenche o campo com "Sem cupom"
+        campoCupom.value = 'Sem cupom';
     });
 });

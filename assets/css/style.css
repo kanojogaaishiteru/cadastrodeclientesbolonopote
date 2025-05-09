@@ -83,3 +83,13 @@ button.delete {
 button.delete:hover {
     background-color: #c82333;
 }
+.status.active { color: green; font-weight: bold; }
+.status.vip { color: gold; font-weight: bold; }
+.status.espera { color: orange; }
+.status.inativo { color: gray; }
+
+.vip-row {
+    background-color: #fff8dc; /* tom dourado suave */
+    font-weight: bold;
+}
+

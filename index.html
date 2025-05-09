@@ -4,12 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro de Clientes</title>
+    
+    <link rel="icon" href="assets/images/favicon.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="assets/css/style.css">
-    <link rel="icon" href="images/favicon.png" type="image/x-icon">
 </head>
+
 <body>
     <div class="container">
-        
         <h1>Cadastro de Clientes</h1>
 
         <form id="formCliente">
@@ -32,29 +34,49 @@
 
             <label for="indicados">Indicados:</label>
             <input type="text" id="indicados" placeholder="Ex: Cliente1, Cliente2"><br><br>
+<label for="entrega">Entrega?</label>
+<input type="checkbox" id="entrega" ><Strong>Sim</Strong><br/><br/>
 
             <button type="submit" id="submitButton">Adicionar Cliente</button>
-            
         </form>
 
         <h2>Clientes Cadastrados</h2>
         <table id="clientesTable">
             <thead>
-                <tr>
-                    <th>Nome</th>
-                    <th>Compras</th>
-                    <th>Nível</th>
-                    <th>Cupons</th>
-                    <th>Indicados</th>
-                    <th>Editar</th>
-                    <th>Excluir</th>
-                </tr>
-            </thead>
+    <tr>
+        <th>Nome</th>
+        <th>Compras</th>
+        <th>Nível</th>
+        <th>Cupons</th>
+        <th>Indicados</th>
+        <th>Status</th> <!-- NOVO -->
+        <th>Editar</th>
+        <th>Excluir</th>
+    </tr>
+</thead>
+
             <tbody>
                 <!-- Clientes vão aparecer aqui -->
             </tbody>
         </table>
+
+        <h2>Resumo de Arrecadação</h2>
+        <table id="resumoArrecadacao" class="table">
+    <thead>
+        <tr>
+            <th>Cliente</th>
+            <th>Compras</th>
+            <th>Cupons</th>
+           <th>Total Arrecadado</th>
         
+            
+        </tr>
+    </thead>
+    <tbody>
+        <!-- Os dados serão preenchidos dinamicamente com JavaScript -->
+    </tbody>
+</table>
+
     </div>
 
     <script src="assets/js/script.js"></script>

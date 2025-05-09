@@ -92,4 +92,100 @@ button.delete:hover {
     background-color: #fff8dc; /* tom dourado suave */
     font-weight: bold;
 }
+@media only screen and (max-width: 480px) {
+    .container {
+        width: 90%;
+        padding: 10px;
+    }
+
+    /* Ajustando a tabela para rolar horizontalmente */
+    table {
+        display: block;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    th, td {
+        font-size: 12px;
+        padding: 8px;
+    }
+
+    input, select, button {
+        width: 100%;
+        padding: 8px;
+        font-size: 14px;
+        margin-bottom: 10px;
+    }
+
+    h1 {
+        font-size: 1.2rem;
+    }
+
+    footer {
+        font-size: 10px;
+    }
+}
+
+/* Medium Devices: 481px até 768px */
+@media only screen and (min-width: 481px) and (max-width: 768px) {
+    .container {
+        width: 90%;
+        padding: 15px;
+    }
+
+    /* Ajustando a tabela para rolar horizontalmente */
+    table {
+        display: block;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    th, td {
+        font-size: 14px;
+        padding: 10px;
+    }
+
+    input, select, button {
+        width: 100%;
+        padding: 10px;
+        font-size: 16px;
+        margin-bottom: 12px;
+    }
+
+    h1 {
+        font-size: 1.5rem;
+    }
+
+    footer {
+        font-size: 12px;
+    }
+}
+
+/* Large Devices: 769px até 1024px */
+@media only screen and (min-width: 769px) and (max-width: 1024px) {
+    .container {
+        width: 80%;
+        padding: 20px;
+    }
+
+    th, td {
+        font-size: 16px;
+        padding: 12px;
+    }
+
+    input, select, button {
+        width: 100%;
+        padding: 12px;
+        font-size: 18px;
+        margin-bottom: 15px;
+    }
+
+    h1 {
+        font-size: 2rem;
+    }
+
+    footer {
+        font-size: 14px;
+    }
+}
 

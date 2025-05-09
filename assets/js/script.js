@@ -17,6 +17,11 @@ document.addEventListener('DOMContentLoaded', function () {
         let cupons = document.getElementById('cupons').value; // Mantém o valor atual do cupom
         const indicados = document.getElementById('indicados').value;
 
+        // Se houver cupom e número de compras aumentar, resetar o cupom para "Sem cupom"
+        if (cupons === '20%' && compras > 0) {
+            cupons = 'Sem cupom';
+        }
+
         // Se o cliente indicar alguém, liberamos um cupom para ele (definir como 20%)
         if (indicados && cupons === 'Sem cupom') {
             cupons = '20%';
